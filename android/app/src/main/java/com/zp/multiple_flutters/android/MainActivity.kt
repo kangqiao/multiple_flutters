@@ -3,6 +3,7 @@ package com.zp.multiple_flutters.android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.zp.multiple_flutters.android.databinding.ActivityMainBinding
+import io.flutter.embedding.android.FlutterActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -12,7 +13,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.button.setOnClickListener {
-            // TODO:
+            startActivity(
+                FlutterActivity.createDefaultIntent(this)
+            )
         }
     }
 }
