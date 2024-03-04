@@ -13,15 +13,23 @@ class CounterNotifier extends StateNotifier<Counter> {
 
   CounterNotifier() : super(Counter()) {
     _channel.setMethodCallHandler(_handleMessage);
-    _channel.invokeMethod<void>('requestCounter');
+    _channel.invokeMethod<int>('getCount').then((value) {
+      if (value is int) {
+        state = Counter(count: value);
+      }
+    });
   }
 
   void increment() {
-    _channel.invokeMethod<void>('incrementCounter');
+    _channel.invokeMethod<void>('incrementCount');
+  }
+
+  void next() {
+    _channel.invokeMethod<void>('next');
   }
 
   Future<dynamic> _handleMessage(MethodCall call) async {
-    if (call.method == 'reportCounter') {
+    if (call.method == 'setCount') {
       if (call.arguments is int) {
         state = Counter(count: call.arguments);
       }

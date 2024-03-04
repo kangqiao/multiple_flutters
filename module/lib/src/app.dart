@@ -4,14 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:module/src/counter_provider.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.color});
+
+  final MaterialColor color;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Module',
-      theme: ThemeData.light(useMaterial3: true),
+      theme: ThemeData(
+          colorSchemeSeed: color,
+          useMaterial3: true,
+          appBarTheme: AppBarTheme(
+            backgroundColor: color,
+            foregroundColor: Colors.white,
+            elevation: 8,
+          )),
       routes: {
         '/': (context) => const FullScreenView(),
         '/mini': (context) => const Contents(),
@@ -78,7 +87,7 @@ class Contents extends ConsumerWidget {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Taps: ${counter.count}',
+                  'Count: ${counter.count}',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 16),
@@ -86,7 +95,14 @@ class Contents extends ConsumerWidget {
                   onPressed: () {
                     ref.read(counterProvider.notifier).increment();
                   },
-                  child: const Text('Tap me!'),
+                  child: const Text('Add'),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    ref.read(counterProvider.notifier).next();
+                  },
+                  child: const Text('Next'),
                 ),
                 if (showExit) ...[
                   const SizedBox(height: 16),
