@@ -51,9 +51,11 @@ dependencies {
 //        transitive = true
 //    }
 
-    debugImplementation 'com.zp.multiple_flutters.module.module:flutter_debug:1.0'
-    profileImplementation 'com.zp.multiple_flutters.module.module:flutter_profile:1.0'
-    releaseImplementation 'com.zp.multiple_flutters.module.module:flutter_release:1.0'
+//    debugImplementation 'com.zp.multiple_flutters.module.module:flutter_debug:1.0'
+//    profileImplementation 'com.zp.multiple_flutters.module.module:flutter_profile:1.0'
+//    releaseImplementation 'com.zp.multiple_flutters.module.module:flutter_release:1.0'
+
+    implementation project(':flutter')
 
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.core:core-ktx:1.12.0'
