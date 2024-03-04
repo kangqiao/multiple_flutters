@@ -33,7 +33,7 @@ interface EngineBindingsDelegate {
  *
  * @see main.dart for what messages are getting sent from Flutter.
  */
-class EngineBindings(activity: Activity, delegate: EngineBindingsDelegate, entrypoint: String) :
+class EngineBindings(activity: Activity, delegate: EngineBindingsDelegate, entrypoint: String, initialRoute: String? = null) :
     NFSharedDataModelObserver,
     MethodChannel.MethodCallHandler {
 
@@ -41,20 +41,15 @@ class EngineBindings(activity: Activity, delegate: EngineBindingsDelegate, entry
     val engine: FlutterEngine
     val delegate: EngineBindingsDelegate
 
-    private val counterViewModel: CounterViewModel by lazy {
-        AppScopeVMProvider.getAppScopeVM(CounterViewModel::class.java)
-    }
-
     init {
         val app = activity.applicationContext as MyApp
         // This has to be lazy to avoid creation before the FlutterEngineGroup.
         val dartEntrypoint = DartExecutor.DartEntrypoint(
             FlutterInjector.instance().flutterLoader().findAppBundlePath(), entrypoint
         )
-        engine = app.engines.createAndRunEngine(activity, dartEntrypoint)
+        engine = app.engines.createAndRunEngine(activity, dartEntrypoint, initialRoute)
         this.delegate = delegate
-        channel =
-            MethodChannel(engine.dartExecutor.binaryMessenger, "com.zp.multiple_flutters/counter")
+        channel = MethodChannel(engine.dartExecutor.binaryMessenger, "com.zp.multiple_flutters/counter")
     }
 
     fun attach() {

@@ -13,7 +13,7 @@ import io.flutter.embedding.engine.FlutterEngine
 class SingleFlutterActivity : FlutterActivity(), EngineBindingsDelegate {
 
     private val engineBindings: EngineBindings by lazy {
-        EngineBindings(activity = this, delegate = this, entrypoint = "main")
+        EngineBindings(activity = this, delegate = this, entrypoint = "bizModule02")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:module/src/counter_provider.dart';
+
+import 'counter_provider.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key, required this.color});
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Module',
+      title: 'Biz Module 02',
       theme: ThemeData(
           colorSchemeSeed: color,
           useMaterial3: true,
@@ -21,24 +22,7 @@ class MyApp extends StatelessWidget {
             foregroundColor: Colors.white,
             elevation: 8,
           )),
-      routes: {
-        '/': (context) => const FullScreenView(),
-        '/mini': (context) => const Contents(),
-      },
-    );
-  }
-}
-
-class FullScreenView extends ConsumerWidget {
-  const FullScreenView({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Full-screen Flutter'),
-      ),
-      body: const Contents(showExit: true),
+      home: const HomePage(),
     );
   }
 }
@@ -48,14 +32,13 @@ class FullScreenView extends ConsumerWidget {
 /// This widget displays info about the state of a counter and how much room (in
 /// logical pixels) it's been given. It also offers buttons to increment the
 /// counter and (optionally) close the Flutter view.
-class Contents extends ConsumerWidget {
+class HomePage extends ConsumerWidget {
   final bool showExit;
 
-  const Contents({super.key, this.showExit = false});
+  const HomePage({super.key, this.showExit = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final mediaInfo = MediaQuery.of(context);
     final counter = ref.watch(counterProvider);
     return SizedBox.expand(
       child: Stack(
@@ -81,11 +64,9 @@ class Contents extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Window is ${mediaInfo.size.width.toStringAsFixed(1)} x '
-                  '${mediaInfo.size.height.toStringAsFixed(1)}',
+                  'You have pushed the button this many times:',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
-                const SizedBox(height: 16),
                 Text(
                   'Count: ${counter.count}',
                   style: Theme.of(context).textTheme.headlineSmall,

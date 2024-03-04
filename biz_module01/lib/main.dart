@@ -13,7 +13,6 @@ void main() {
   );
 }
 
-@pragma('vm:entry-point')
 void topMain() {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -24,7 +23,6 @@ void topMain() {
   );
 }
 
-@pragma('vm:entry-point')
 void bottomMain() {
   WidgetsFlutterBinding.ensureInitialized();
 

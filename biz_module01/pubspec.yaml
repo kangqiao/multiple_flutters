@@ -1,4 +1,4 @@
-name: module
+name: biz_module01
 description: "A new Flutter module project."
 
 # The following defines the version and build number for your application.
@@ -28,6 +28,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   flutter_riverpod: ^2.4.10
+  freezed_annotation: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -88,5 +89,5 @@ flutter:
   # identifiers, which may be completely independent or the same as these.
   module:
     androidX: true
-    androidPackage: com.zp.multiple_flutters.module.module
-    iosBundleIdentifier: com.zp.multipleflutters.module.module
+    androidPackage: com.zp.multiple_flutters.biz_module01
+    iosBundleIdentifier: com.zp.multipleflutters.biz_module01
