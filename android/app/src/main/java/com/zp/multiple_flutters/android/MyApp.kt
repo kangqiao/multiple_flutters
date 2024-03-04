@@ -4,6 +4,7 @@ import androidx.multidex.MultiDexApplication
 import com.zp.multiple_flutters.android.models.CounterViewModel
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
+import io.flutter.embedding.engine.FlutterEngineGroup
 import io.flutter.embedding.engine.dart.DartExecutor
 import io.flutter.plugin.common.MethodChannel
 
@@ -20,44 +21,53 @@ class MyApp : MultiDexApplication() {
         fun getInstance(): MyApp {return  _myApp}
     }
 
-    private  val counterViewModel: CounterViewModel by lazy {
-        AppScopeVMProvider.getAppScopeVM(CounterViewModel::class.java)
-    }
-    private lateinit var channel: MethodChannel
+    lateinit var engines: FlutterEngineGroup
 
     override fun onCreate() {
         super.onCreate()
         _myApp = this
-        // Instantiate a FlutterEngine.
-        val flutterEngine = FlutterEngine(this)
-
-        // Start executing Dart code to pre-warm the FlutterEngine.
-        flutterEngine.dartExecutor.executeDartEntrypoint(
-            DartExecutor.DartEntrypoint.createDefault()
-        )
-
-        // Cache the FlutterEngine to be used by FlutterActivity.
-        FlutterEngineCache
-            .getInstance()
-            .put(ENGINE_ID, flutterEngine)
-
-        channel = MethodChannel(flutterEngine.dartExecutor, "com.zp.multiple_flutters/counter")
-
-        channel.setMethodCallHandler { call, _ ->
-            when (call.method) {
-                "incrementCounter" -> {
-                    counterViewModel.increment()
-                    reportCounter()
-                }
-
-                "requestCounter" -> {
-                    reportCounter()
-                }
-            }
-        }
+        engines = FlutterEngineGroup(this)
     }
 
-    private fun reportCounter() {
-        channel.invokeMethod("reportCounter", counterViewModel.count.value)
-    }
+
+//    private  val counterViewModel: CounterViewModel by lazy {
+//        AppScopeVMProvider.getAppScopeVM(CounterViewModel::class.java)
+//    }
+//    private lateinit var channel: MethodChannel
+//
+//    override fun onCreate() {
+//        super.onCreate()
+//        _myApp = this
+//        // Instantiate a FlutterEngine.
+//        val flutterEngine = FlutterEngine(this)
+//
+//        // Start executing Dart code to pre-warm the FlutterEngine.
+//        flutterEngine.dartExecutor.executeDartEntrypoint(
+//            DartExecutor.DartEntrypoint.createDefault()
+//        )
+//
+//        // Cache the FlutterEngine to be used by FlutterActivity.
+//        FlutterEngineCache
+//            .getInstance()
+//            .put(ENGINE_ID, flutterEngine)
+//
+//        channel = MethodChannel(flutterEngine.dartExecutor, "com.zp.multiple_flutters/counter")
+//
+//        channel.setMethodCallHandler { call, _ ->
+//            when (call.method) {
+//                "incrementCounter" -> {
+//                    counterViewModel.increment()
+//                    reportCounter()
+//                }
+//
+//                "requestCounter" -> {
+//                    reportCounter()
+//                }
+//            }
+//        }
+//    }
+
+//    private fun reportCounter() {
+//        channel.invokeMethod("reportCounter", counterViewModel.count.value)
+//    }
 }
