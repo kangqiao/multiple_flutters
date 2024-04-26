@@ -1,3 +1,4 @@
+import 'package:biz_module01/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Module',
+      title: 'BizModule01',
       theme: ThemeData(
           colorSchemeSeed: color,
           useMaterial3: true,
@@ -37,7 +38,7 @@ class FullScreenView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Full-screen Flutter'),
+        title: const Text('BizModule01'),
       ),
       body: const Contents(showExit: true),
     );
@@ -81,6 +82,12 @@ class Contents extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset(
+                  Assets.imgAvatar,
+                  package: Assets.package,
+                  width: 80,
+                  height: 80,
+                ),
                 Text(
                   'Window is ${mediaInfo.size.width.toStringAsFixed(1)} x '
                   '${mediaInfo.size.height.toStringAsFixed(1)}',

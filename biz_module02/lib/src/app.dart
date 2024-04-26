@@ -1,3 +1,4 @@
+import 'package:biz_module02/assets/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -63,8 +64,14 @@ class HomePage extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset(
+                  Assets.imgAvatar,
+                  package: Assets.package,
+                  width: 80,
+                  height: 80,
+                ),
                 Text(
-                  'You have pushed the button this many times:',
+                  'Biz Module02 times:',
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 Text(
